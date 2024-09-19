@@ -19,7 +19,7 @@ class Node:
         Args:
             bridge (RosQmlBridge): The QML-ROS bridge instance to update QML data.
         """
-        # ROS Subscriber
+        
         rospy.Subscriber("/chatter", String, self.ros_callback, bridge)
         
         
