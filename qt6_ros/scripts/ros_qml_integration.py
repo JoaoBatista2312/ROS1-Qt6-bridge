@@ -15,10 +15,7 @@ rospack = rospkg.RosPack()
 package_path = rospack.get_path('qt_ros')  # Get the path to your ROS package
 sys.path.append(os.path.join(package_path, 'src'))
 
-from qml_retrieval_node import Node  # Now this import should work
-
-# The rest of your code goes here...
-
+from qml_retrieval_node import Node  
 
 class RosQmlBridge(QObject):
     """
