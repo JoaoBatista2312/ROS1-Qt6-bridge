@@ -1,4 +1,4 @@
-# ROS1-Qt6-bridge-
+# ROS1-Qt6-bridge
 
 Simple ROS node to send information to a Qt GUI using a ROS bridge.
 
