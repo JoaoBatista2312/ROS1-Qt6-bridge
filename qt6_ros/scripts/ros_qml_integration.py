@@ -54,7 +54,6 @@ class RosQmlBridge(QObject):
 
 
 def main():
-    # Initialize ROS in the main thread
     rospy.init_node('qt_ros_subscriber_py_node', anonymous=True)
 
     # Initialize Qt
@@ -64,9 +63,9 @@ def main():
     # Initialize the ROS-QML bridge
     bridge = RosQmlBridge()
 
-    # Initialize the ROS node (without calling init_node again)
+    # Initialize the ROS Node
     ros_node = Node()
-    ros_node.start_ros_node(bridge)  # Start the subscriber and callback handling
+    ros_node.start_ros_node(bridge) 
 
     # Load QML file
     rospack = rospkg.RosPack()
@@ -89,7 +88,7 @@ def main():
     timer.start(100)
 
     # Start the Qt event loop
-    sys.exit(app.exec())  # Note: exec_() is renamed to exec() in PyQt6
+    sys.exit(app.exec())  
 
 
 if __name__ == '__main__':
