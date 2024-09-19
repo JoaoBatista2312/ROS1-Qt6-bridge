@@ -12,7 +12,7 @@ from PyQt6.QtQml import QQmlApplicationEngine
 
 # Add the src directory to the Python path
 rospack = rospkg.RosPack()
-package_path = rospack.get_path('qt_ros')  # Get the path to your ROS package
+package_path = rospack.get_path('qt6_ros')  # Get the path to your ROS package
 sys.path.append(os.path.join(package_path, 'src'))
 
 from qml_retrieval_node import Node  
@@ -69,7 +69,7 @@ def main():
 
     # Load QML file
     rospack = rospkg.RosPack()
-    package_path = rospack.get_path('qt_ros')
+    package_path = rospack.get_path('qt6_ros')
     qml_file = os.path.join(package_path, "qml/main.qml")
 
     engine.rootContext().setContextProperty("rosBridge", bridge)
