@@ -16,24 +16,20 @@ The `qt6_ros` package provides a seamless integration between the Robot Operatin
 Before using the `qt6_ros` package, ensure that you have the following software installed:
 
 1. **Robot Operating System (ROS)**:
-   - Make sure you have a compatible version of ROS installed. This package has been tested with ROS Noetic and Melodic.
-   - Follow the [ROS installation guide](http://wiki.ros.org/ROS/Installation) for your operating system.
+   - Make sure you have a compatible version of ROS installed. This package has been tested with ROS Noetic.
+   - Follow the [ROS Noetic installation guide]http://wiki.ros.org/noetic/Installation/Ubuntu) for your operating system.
 
-2. **Qt Framework**:
-   - Install Qt version 5.12 or higher. You can download it from the [Qt official website](https://www.qt.io/download).
-
-3. **Python**:
+2. **Python**:
    - Ensure that Python 3 is installed on your system, as this package is written in Python.
    - You can download Python from [python.org](https://www.python.org/downloads/).
 
-4. **Python Packages**:
-   - Install the required Python packages. You can do this using pip:
+3. **PyQt6**:
+   - Install PyQt6, which is required for the graphical user interface. You can install it using pip:
      ```bash
-     pip install -r requirements.txt
+     pip install PyQt6
      ```
-   - Make sure to create a `requirements.txt` file that includes any additional dependencies your package might need.
 
-5. **catkin Build System**:
+4. **catkin Build System**:
    - Make sure you have the `catkin` build system installed. If you have ROS installed, it should already be available.
    - Refer to the [catkin documentation](http://wiki.ros.org/catkin) for details on usage.
 
@@ -52,7 +48,7 @@ To run the launch file, ensure your ROS environment is properly set up and execu
 ```
 roslaunch qt6_ros GUI_interface.launch
 ```
-This will launch the Qt application, connecting it to the specified test topic '/chatter' for data visualization and the GUI Node.
+This will launch the Qt GUI, connecting it to the specified test topic '/chatter' for data visualization and the GUI Node.
 
 ## License
 
