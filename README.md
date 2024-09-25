@@ -17,7 +17,7 @@ Before using the `qt6_ros` package, ensure that you have the following software 
 
 1. **Robot Operating System (ROS)**:
    - Make sure you have a compatible version of ROS installed. This package has been tested with ROS Noetic.
-   - Follow the [ROS Noetic installation guide]http://wiki.ros.org/noetic/Installation/Ubuntu) for your operating system.
+   - Follow the [ROS Noetic installation guide](http://wiki.ros.org/noetic/Installation/Ubuntu) for your operating system.
 
 2. **Python**:
    - Ensure that Python 3 is installed on your system, as this package is written in Python.
