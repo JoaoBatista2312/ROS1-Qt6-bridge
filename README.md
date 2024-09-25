@@ -2,7 +2,7 @@
 
 ## Description
 
-The `qt6_ros` package provides a seamless integration between the Robot Operating System (ROS) and the Qt framework, enabling the development of robust graphical user interfaces (GUIs) for robotic applications. This package is designed to facilitate real-time data visualization and interaction with ROS nodes.
+The `qt6_ros` package provides a seamless integration between the ROS and the Qt framework, enabling the development of robust GUIs for robotic applications. This package is designed to facilitate real-time data visualization and interaction with ROS nodes.
 
 ### Features
 
@@ -15,7 +15,7 @@ The `qt6_ros` package provides a seamless integration between the Robot Operatin
 
 Before using the `qt6_ros` package, ensure that you have the following software installed:
 
-1. **Robot Operating System (ROS)**:
+1. **ROS**:
    - Make sure you have a compatible version of ROS installed. This package has been tested with ROS Noetic.
    - Follow the [ROS Noetic installation guide](http://wiki.ros.org/noetic/Installation/Ubuntu) for your operating system.
 
