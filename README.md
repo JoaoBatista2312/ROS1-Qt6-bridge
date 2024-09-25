@@ -25,7 +25,7 @@ Before using the `qt6_ros` package, ensure that you have the following software 
 
 3. **PyQt6**:
    - Install PyQt6, which is required for the graphical user interface. You can install it using pip:
-     ```bash
+     ```
      pip install PyQt6
      ```
 
@@ -48,7 +48,7 @@ To run the launch file, ensure your ROS environment is properly set up and execu
 ```
 roslaunch qt6_ros GUI_interface.launch
 ```
-This will launch the Qt GUI, connecting it to the specified test '/chatter' topicfor data visualization and the GUI Node.
+This will launch the Qt GUI, connecting it to the specified test '/chatter' topic for data visualization and the GUI Node.
 
 ## License
 
