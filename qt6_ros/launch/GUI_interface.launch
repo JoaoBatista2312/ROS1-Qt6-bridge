@@ -1,0 +1,6 @@
+<launch>
+    <!-- Launch the nodes and scripts-->
+    <node name="ros_qml_integration" pkg="qt6_ros" type="ros_qml_integration.py" output="screen" />
+
+    <node name="increment_publisher" pkg="qt6_ros" type="increment_publisher.py" output="screen" />
+</launch>

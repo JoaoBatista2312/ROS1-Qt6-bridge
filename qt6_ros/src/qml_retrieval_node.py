@@ -7,7 +7,7 @@ class Node:
     def __init__(self):
         pass
     
-    def ros_callback(self, msg, bridge):
+    def string_callback(self, msg, bridge):
         """Callback function to handle ROS messages."""
         bridge.setRosData(msg.data)
 
@@ -20,6 +20,6 @@ class Node:
             bridge (RosQmlBridge): The QML-ROS bridge instance to update QML data.
         """
         
-        rospy.Subscriber("/chatter", String, self.ros_callback, bridge)
+        rospy.Subscriber("/chatter", String, self.string_callback, bridge)
         
         
