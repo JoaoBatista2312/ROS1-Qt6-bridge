@@ -1,4 +1,4 @@
-# ROS1-Qt6-bridge
+# ROS1 Qt6 bridge
 
 ## Description
 
