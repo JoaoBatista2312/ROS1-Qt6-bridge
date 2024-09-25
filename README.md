@@ -48,7 +48,7 @@ To run the launch file, ensure your ROS environment is properly set up and execu
 ```
 roslaunch qt6_ros GUI_interface.launch
 ```
-This will launch the Qt GUI, connecting it to the specified test topic '/chatter' for data visualization and the GUI Node.
+This will launch the Qt GUI, connecting it to the specified test '/chatter' topicfor data visualization and the GUI Node.
 
 ## License
 
