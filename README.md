@@ -29,10 +29,6 @@ Before using the `qt6_ros` package, ensure that you have the following software 
      pip install PyQt6
      ```
 
-4. **catkin Build System**:
-   - Make sure you have the `catkin` build system installed. If you have ROS installed, it should already be available.
-   - Refer to the [catkin documentation](http://wiki.ros.org/catkin) for details on usage.
-
 ## Installation
 
 To install the `qt6_ros` package, clone this repository into your ROS workspace and build it using the following commands:
