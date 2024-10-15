@@ -4,6 +4,8 @@
 
 The `qt6_ros` package provides a seamless integration between the ROS and the Qt framework, enabling the development of robust GUIs for robotic applications. This package is designed to facilitate real-time data visualization and interaction with ROS nodes. This is still under development, so bugs may appear.
 
+The newest version (2024/10/15) uses QQuickImageProvider class in order to display the images on a seperate thread. It also uses the QtNode in a seperate QThread.
+
 ### Features
 
 - **ROS Integration**: Easily connect your Qt applications with ROS topics and services.
@@ -45,6 +47,8 @@ To run the launch file, ensure your ROS environment is properly set up and execu
 roslaunch qt6_ros GUI_interface.launch
 ```
 This will launch the Qt GUI, connecting it to the specified test '/chatter' topic for data visualization and the GUI Node.
+
+In order to launch the GUI and the QtNode it is only needed to run the QML_Level.py file.
 
 ## License
 
