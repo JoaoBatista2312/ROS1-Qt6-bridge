@@ -4,7 +4,7 @@
 
 The `qt6_ros` package provides a seamless integration between the ROS and the Qt framework, enabling the development of robust GUIs for robotic applications. This package is designed to facilitate real-time data visualization and interaction with ROS nodes. This is still under development, so bugs may appear.
 
-The newest version (2024/10/15) uses QQuickImageProvider class in order to display the images on a seperate thread. It also uses the QtNode in a seperate QThread.
+The newest version (2024/10/25) uses QQuickImageProvider class in order to display the images on a seperate thread. It also uses the QtNode in a seperate QThread. It was further updated from PyQt6 to PySide6 due to PySide being officially the suported Python Qt API (it also has good documentation).
 
 ### Features
 
@@ -42,7 +42,7 @@ catkin_make
 ```
 
 ## Usage
-To run the launch file, ensure your ROS environment is properly set up and execute the following command:
+To run the launch file, ensure your ROS environment is properly set up and compiled, and execute the following command:
 ```
 roslaunch qt6_ros GUI_interface.launch
 ```

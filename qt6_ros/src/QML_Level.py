@@ -1,118 +1,126 @@
 #!/usr/bin/env python3
 
+from PySide6.QtCore import Signal, Slot, QObject, Property, QUrl
+from PySide6.QtGui import QImage, QGuiApplication, QColor
+from PySide6.QtQml import QQmlApplicationEngine
+from PySide6.QtQuick import QQuickImageProvider
+
 import sys
-from PyQt6.QtCore import pyqtSignal, QObject, pyqtProperty, QUrl
-from PyQt6.QtGui import QImage, QGuiApplication, QColor
-from PyQt6.QtQml import QQmlApplicationEngine
-from PyQt6.QtQuick import QQuickImageProvider
 import os
+
 import rospkg
-
-from QtNode import QtNode
-
+from QtNode import QtNode  
 
 class ImageProvider(QQuickImageProvider):
     """
-    ImageProvider class responsible for handling and providing images to the QML UI. 
-    It stores an internal image and can update the image based on new data. The class
-    also tracks the number of image updates and emits a signal when this count changes.
-
+    The ImageProvider class supplies images to the QML UI. It stores an image that can be updated
+    and tracks how many times it has been updated, emitting a signal whenever the update count changes.
+    
+    Attributes:
+        - imageCounterSignal: Signal emitted when the internal image update count changes.
+    
     Methods:
-        - updateImage(new_image): Updates the stored image with a new QImage and emits the update signal.
-        - requestImage(p_str, size): Returns the current image or a default red image if no image is available.
-        - imageUpdateCount (property): Returns the number of image updates and notifies changes.
+        - updateImage(new_image): Updates the current image with `new_image`, increments the update count,
+                                  and emits the update signal.
+        - requestImage(p_str, size): Returns the stored image if available or a default red image if not.
+        - imageUpdateCount (property): Property for accessing the update count, notifying QML of changes.
     """
 
-    imageUpdateCountChanged = pyqtSignal()
+    imageCounterSignal = Signal()
 
     def __init__(self):
-        super().__init__(QQuickImageProvider.ImageType.Image) 
-        self.image = QImage()
-        self._update_count = 0  
-
-    def updateImage(self, new_image):      
+        super().__init__(QQuickImageProvider.ImageType.Image)  
+        self.image = QImage() 
+        self._update_count = 0 
+    
+    @Slot(QImage)
+    def updateImage(self, new_image):
+        """
+        Updates the stored image with `new_image` and emits a signal if the image is a QImage.
+        """
         if isinstance(new_image, QImage):
             self.image = new_image  
-            self._update_count += 1 
-            print("Image updated in provider, update count:", self._update_count)
-            
-            self.imageUpdateCountChanged.emit()
+            self._update_count += 1  
+            self.imageCounterSignal.emit()  
         else:
-            print("Received image is not of type QImage.") 
+            print("Received image is not of type QImage.")  
 
-    def requestImage(self, p_str, size):
+    def requestImage(self, id, size, requestedSize):
         if self.image.isNull():
             img = QImage(300, 300, QImage.Format.Format_RGBA8888)
-            img.fill(QColor(255, 0, 0))
+            img.fill(QColor(255, 0, 0)) 
             print("Image is null, returning red image")
-            return img, img.size()
+            return img
 
-        print("Image is not null, returning updated image")
-        return self.image, self.image.size()
+        return self.image 
 
-    @pyqtProperty(int, notify=imageUpdateCountChanged)  
+    @Property(int, notify=imageCounterSignal)  
     def imageUpdateCount(self):
         return self._update_count  
 
 
 class MyApplicationConnection(QObject):
     """
-    MyApplicationConnection class manages the communication between ROS data and the QML UI.
-    It stores the current ROS data and emits a signal when the data changes to notify QML.
-
+    The MyApplicationConnection class facilitates data exchange between the ROS framework and QML UI.
+    It stores ROS data and notifies the QML interface whenever new data is received.
+    
+    Attributes:
+        - rosDataChanged: Signal emitted when the internal ROS data changes.
+    
     Methods:
-      - getRosData(data): Updates the internal ROS data if it has changed and emits the rosDataChanged signal.
-      - rosData (property): Exposes the current ROS data to QML and notifies changes.
+        - getRosData(data): Updates internal ROS data if it changes and emits rosDataChanged.
+        - rosData (property): Provides QML with the current ROS data and notifies changes.
     """
 
-    rosDataChanged = pyqtSignal()
+    rosDataChanged = Signal()
 
     def __init__(self):
         super(MyApplicationConnection, self).__init__()
-        self._ros_data = ""
+        self._ros_data = "Hello World"  
 
-    @pyqtProperty(str, notify=rosDataChanged)
-    def rosData(self):
-        return self._ros_data
-
+    @Slot(str)
     def getRosData(self, data):
         if data != self._ros_data:
             self._ros_data = data
-            self.rosDataChanged.emit()
-
+            self.rosDataChanged.emit()  
+    @Property(str, notify=rosDataChanged)
+    def rosData(self):
+        return self._ros_data
 
 
 if __name__ == "__main__":
-    # Initialize Qt
+    # Initialize the Qt application
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    # Instantiate the image provider
+    # Set up the image provider and add it to the QML engine
     image_provider = ImageProvider()
-    engine.addImageProvider("myImageProvider", image_provider)
+    engine.addImageProvider("myImageProvider", image_provider)  # Make provider available in QML
     engine.rootContext().setContextProperty("imageProvider", image_provider)
 
-    # Instantiate connection class
+    # Set up ROS-QML connection and make it available to QML
     connection = MyApplicationConnection()
+    engine.rootContext().setContextProperty("appConnection", connection)
 
-    # Load QML
+    # Load the QML user interface file from the ROS package directory
     rospack = rospkg.RosPack()
     package_path = rospack.get_path('qt6_ros')
     qml_file = os.path.join(package_path, "qml/main.qml")
-    engine.rootContext().setContextProperty("appConnection", connection)
     engine.load(QUrl.fromLocalFile(qml_file))
 
     if not engine.rootObjects():
-        sys.exit(-1)
+        sys.exit(-1)  
 
-    # Start ROS node
-    ros_node = QtNode(connection, image_provider)
+    ros_node = QtNode()
+
+    # Connect ROS node signals to appropriate slots
+    ros_node.updateImage.connect(image_provider.updateImage)  
+    ros_node.updateMessage.connect(connection.getRosData)  
     ros_node.start()
 
     def cleanup():
         ros_node.stop()
         ros_node.wait()
 
-    app.aboutToQuit.connect(cleanup)
-
-    sys.exit(app.exec())
+    app.aboutToQuit.connect(cleanup)  
+    sys.exit(app.exec())  
