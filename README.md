@@ -28,7 +28,7 @@ Before using the `qt6_ros` package, ensure that you have the following software 
 3. **PyQt6**:
    - Install PyQt6, which is required for the graphical user interface. You can install it using pip:
      ```
-     pip install PyQt6
+     pip install Pysyde6
      ```
 
 ## Installation
