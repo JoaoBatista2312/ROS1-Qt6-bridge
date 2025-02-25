@@ -25,7 +25,7 @@ Before using the `qt6_ros` package, ensure that you have the following software 
    - Ensure that Python 3 is installed on your system, as this package is written in Python.
    - You can download Python from [python.org](https://www.python.org/downloads/).
 
-3. **PyQt6**:
+3. **PySyde6**:
    - Install PySyde6, which is required for the graphical user interface. You can install it using pip:
      ```
      pip install Pysyde6
